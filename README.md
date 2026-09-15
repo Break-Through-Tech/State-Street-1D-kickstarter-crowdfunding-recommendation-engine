@@ -1,31 +1,26 @@
-# AI Studio Challenge Project Title
+# Kickstarter Crowdfunding Recommendation Engine
 
-> 💡 **Note for the team:** This is just a template. Update the above title with your AI Studio Challenge Project name. Remove all guidance notes and example text in this template and populate this README with your own content. You can work on this README throughout AI Studio, and get feedback from your AI Studio Coach and Challenge Advisor before finalizing it.  
+> 💡 **Note for the team:** This README is still a work in progress. Sections below with example/placeholder text should be filled in as the project develops, and get feedback from your AI Studio Coach and Challenge Advisor before finalizing it.
 
 ---
 
 ### 👥 **Team Members**
 
-**Example:**
-
 | Name             | GitHub Handle | Contribution                                                             |
 |------------------|---------------|--------------------------------------------------------------------------|
-| Taylor Nguyen    | @taylornguyen | Data exploration, visualization, overall project coordination            |
-| Jordan Ramirez   | @jramirez     | Data collection, exploratory data analysis (EDA), dataset documentation  |
-| Amina Hassan     | @aminahassan  | Data preprocessing, feature engineering, data validation                 |
-| Priya Mehta      | @pmehta       | Model selection, hyperparameter tuning, model training and optimization  |
-| Chris Park       | @chrispark    | Model evaluation, performance analysis, results interpretation           |
+| Michelle Lin   | @michelllinstar | Data exploration, visualization, overall project coordination            |
+| Hazera Sarker | @    | Data collection, exploratory data analysis (EDA), dataset documentation  |
+| Nitya Vobugari    | @ | Data preprocessing, feature engineering, data validation                 |
+
 
 ---
 
 ## 🎯 **Project Highlights**
 
-**Example:**
-
-- Developed a machine learning model using `[model type/technique]` to address `[challenge project task]`.
-- Achieved `[key metric or result]`, demonstrating `[value or impact]` for `[host company]`.
-- Generated actionable insights to inform business decisions at `[host company or stakeholders]`.
-- Implemented `[specific methodology]` to address industry constraints or expectations.
+- Building a **binary classification model** that predicts whether a Kickstarter campaign will succeed or fail, using information available at campaign launch.
+- Comparing multiple classification approaches — **Logistic Regression, K-Nearest Neighbors, and Decision Trees/Random Forest** — and evaluating them with Precision, Recall, F1 Score, and ROC-AUC (targeting ~80%+ accuracy).
+- Identifying the campaign characteristics most associated with success (e.g., goal, duration, category, updates, reward levels) to keep the model interpretable, not just accurate.
+- Prototyping a **recommendation framework** that translates model predictions into actionable guidance campaign creators could use to improve their odds of success.
 
 ---
 
@@ -43,36 +38,52 @@
 
 ## 🏗️ **Project Overview**
 
-**Describe:**
+This project is part of the **Break Through Tech AI Studio (Fall 2026)** program, which pairs student fellows with host companies to work on real-world, industry-inspired machine learning challenges.
 
-- How this project is connected to the Break Through Tech AI Program
-- Your AI Studio host company and the project objective and scope
-- The real-world significance of the problem and the potential impact of your work
+Our **AI Studio host company is State Street**, a financial services and banking holding company specializing in investment management and servicing. State Street operates at the intersection of financial services, data, technology, and analytics, providing context for exploring how machine learning can support data-driven decision-making. *(Note: this challenge does not use any State Street data.)*
+
+**Objective:** Build a **Kickstarter Crowdfunding Recommendation Engine** that predicts whether a crowdfunding campaign will succeed or fail, using information available at campaign launch (e.g., funding goal, duration, category, location, reward levels). Beyond prediction, the project aims to identify the factors most associated with campaign outcomes and translate those insights into actionable recommendations for campaign creators — for example, flagging at-risk campaigns and suggesting adjustments that could improve their odds of success.
+
+**Real-world significance:** Crowdfunding platforms like Kickstarter help entrepreneurs and creators raise capital outside traditional funding channels, but a large share of campaigns fail to reach their goals. A model that reliably predicts campaign outcomes — and explains *why* — could help creators design stronger campaigns before launch and help platforms surface early guidance to at-risk projects, mirroring the kind of predictive, explainable analytics used across financial services.
+
+**What we're building:** A tool that predicts whether a Kickstarter project will succeed or fail, and surfaces what factors could help a project perform better. The primary users are people creating Kickstarter campaigns — the model and its insights can help them make better choices (e.g., goal size, duration, category, reward structure) and improve their chances of reaching their funding goal.
+
+**Market:** This project sits in the crowdfunding space, focused specifically on U.S.-based Kickstarter projects.
+
+**Stakeholders:** Our team, our AI Studio Coach and Challenge Advisor, and State Street and Break Through Tech more broadly — all of whom care about the quality, interpretability, and practical usefulness of the model, not just raw accuracy.
+
+**Success metrics:**
+- **Model performance:** ~80%+ accuracy, alongside strong Precision, Recall, and ROC-AUC.
+- **Model comparison:** Identify the best-performing classification approach across the models we test.
+- **Interpretability:** Clearly explain the campaign characteristics most associated with success.
+- **Recommendation value:** By end of November, deliver a prototype recommendation framework that turns model predictions and key features into actionable guidance for at-risk campaigns.
+
+**Ethical considerations:** The historical dataset may not represent all project categories equally, so we're checking for imbalances that could bias recommendations toward or against particular groups. We're also guarding against data leakage by only using features available at campaign launch, and we're careful not to present predictions as guarantees — they reflect patterns in historical data, not certainty about any individual campaign.
+
+See [Challenge-Project-Overview.md](Challenge-Project-Overview.md) for the full challenge brief, dataset details, milestones, and suggested approach from our Challenge Advisor, and [Project-Brief-and-Workplan.md](Project-Brief-and-Workplan.md) for our team's full project brief, risks, tools, and workplan.
 
 ---
 
 ## 📊 **Data Exploration**
 
-**You might consider describing the following (as applicable):**
+**Dataset:** [Kickstarter Projects dataset](https://www.kaggle.com/parienza/kickstarter) (publicly available on Kaggle). Structured/tabular data with numerical, categorical, and date/time campaign attributes — including project ID, name, URL, category/subcategory, location, status, goal, pledged amount, funded percentage, backers, funded date, reward levels, updates, and comments. The original source data has ~45,957 rows and 17 columns; after filtering to successful/failed U.S. campaigns and removing missing values, the reference dataset has ~38,491 rows and 18 columns.
 
-* The dataset(s) used: origin, format, size, type of data
-* Data exploration and preprocessing approaches
-* Insights from your Exploratory Data Analysis (EDA)
-* Challenges and assumptions when working with the dataset(s)
+**Planned approach:**
+* Filter to successful/failed U.S.-based campaigns and handle missing values, duplicates, and inconsistent category labels.
+* Explore the distribution of successful vs. failed campaigns, and relationships between success and features like goal amount, duration, category, updates, and reward levels using summary statistics, histograms, and box plots.
+* Engineer features (e.g., campaign duration, goal-to-pledge ratios, category encodings) that are available at campaign launch, avoiding data leakage from post-launch outcomes.
 
-**Potential visualizations to include:**
-
-* Plots, charts, heatmaps, feature visualizations, sample dataset images
+*(EDA insights and visualizations will be added here as the analysis progresses.)*
 
 ---
 
 ## 🧠 **Model Development**
 
-**You might consider describing the following (as applicable):**
+**Planned models:** Logistic Regression as an interpretable baseline, compared against K-Nearest Neighbors and Decision Trees/Random Forest (with XGBoost/LightGBM as optional advanced comparisons).
 
-* Model(s) used (e.g., CNN with transfer learning, regression models)
-* Feature selection and Hyperparameter tuning strategies
-* Training setup (e.g., % of data for training/validation, evaluation metric, baseline performance)
+**Approach:** Compare models on Accuracy, Precision, Recall, F1 Score, and ROC-AUC; explore feature selection and hyperparameter tuning to see whether they materially improve results; use tools like SHAP to assess model interpretability and explain which features drive predictions.
+
+*(Training setup, final model choice, and tuning details will be documented here as modeling progresses.)*
 
 
 ---
@@ -93,11 +104,12 @@
 
 ## 🚀 **Next Steps**
 
-**You might consider addressing the following (as applicable):**
+**Project milestones:**
+* **By 09/30:** Complete EDA and initial data cleaning — filter to U.S. campaigns, address missing fields, perform feature engineering.
+* **By 10/31:** Analyze associations between funding outcomes and key features (goal, duration, updates, location, category/subcategory, reward levels).
+* **By 11/30:** Build and compare baseline and advanced classification models, run feature selection/engineering, evaluate performance and interpretability, and prototype the recommendation framework for at-risk campaigns.
 
-* What are some of the limitations of your model?
-* What would you do differently with more time/resources?
-* What additional datasets or techniques would you explore?
+*(Model limitations, what we'd do differently, and future directions will be added here after modeling is complete.)*
 
 ---
 
